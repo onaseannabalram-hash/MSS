@@ -1,0 +1,49 @@
+<!-- templates/dashboard.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-header"><strong>Employees</strong></div>
+      <div class="card-body">
+        <a class="btn btn-success btn-sm mb-2" href="/employees/new">Add employee</a>
+        <ul class="list-group">
+          {% for e in employees %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              {{ e.first_name }} {{ e.last_name }} ({{ e.employee_id_code }})
+            </div>
+            <div>
+              <a class="btn btn-outline-primary btn-sm" href="/payslips/new/{{ e.id }}">Create payslip</a>
+              <!-- ✅ New Edit button -->
+              <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('edit_employee', emp_id=e.id) }}">Edit</a>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-header"><strong>Recent payslips</strong></div>
+      <div class="card-body">
+        <ul class="list-group">
+          {% for p in payslips %}
+          <li class="list-group-item">
+            {{ p.employee.first_name }} {{ p.employee.last_name }} — {{ p.period_start }} to {{ p.period_end }}
+            <div class="mt-1">
+              <a class="btn btn-sm btn-outline-secondary" href="/payslips/{{ p.id }}">View</a>
+              <a class="btn btn-sm btn-outline-success" href="/payslips/{{ p.id }}/pdf">PDF</a>
+              <a class="btn btn-sm btn-outline-primary" href="/payslips/{{ p.id }}/edit">Edit</a> <!-- ✅ NEW -->
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="card-header"><strong>Payslip</strong></div>
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <div>
+        <h5 class="mb-1">Maximatic Security Services</h5>
+        <div class="text-muted">Payroll period: {{ p.period_start }} to {{ p.period_end }}</div>
+      </div>
+      <a class="btn btn-success" href="/payslips/{{ p.id }}/pdf">Download PDF</a>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Employee:</strong> {{ p.employee.first_name }} {{ p.employee.last_name }}</p>
+        <p><strong>ID:</strong> {{ p.employee.employee_id_code }}</p>
+        <p><strong>Department:</strong> {{ p.employee.department }}</p>
+        <p><strong>Position:</strong> {{ p.employee.position }}</p>
+        {% if p.employee.nis_number %}<p><strong>NIS:</strong> {{ p.employee.nis_number }}</p>{% endif %}
+        {% if p.employee.tax_reference %}<p><strong>Tax ref:</strong> {{ p.employee.tax_reference }}</p>{% endif %}
+      </div>
+      <div class="col-md-6">
+        <p><strong>Created:</strong> {{ p.created_at }}</p>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-6"><h6>Earnings (GYD)</h6>
+        <p><strong>Basic pay:</strong> {{ '%.2f'|format(p.basic_pay + p.overtime_pay + p.allowances + (p.hours_worked * p.rate_per_hour)) }}</p>
+        <p><strong>Overtime:</strong> {{ '%.2f'|format(p.overtime_pay) }}</p>
+        <p><strong>Allowances:</strong> {{ '%.2f'|format(p.allowances) }}</p>
+      </div>
+      <div class="col-md-6">
+        <h6>Deductions (GYD)</h6>
+        <p><strong>Tax:</strong> {{ '%.2f'|format(p.tax) }}</p>
+        <p><strong>NIS:</strong> {{ '%.2f'|format(p.nis) }}</p>
+        <p><strong>Other:</strong> {{ '%.2f'|format(p.other_deductions) }}</p>
+      </div>
+    </div>
+    <hr>
+    <h5>Net pay: <span class="brand-accent mono">{{ '%.2f'|format(p.net_pay) }}</span></h5>
+
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <h6>Year-to-date (YTD) totals</h6>
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>YTD Basic:</strong> {{ '%.2f'|format(ytd.basic_pay) }}</p>
+            <p><strong>YTD Overtime:</strong> {{ '%.2f'|format(ytd.overtime_pay) }}</p>
+            <p><strong>YTD Allowances:</strong> {{ '%.2f'|format(ytd.allowances) }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>YTD Tax:</strong> {{ '%.2f'|format(ytd.tax) }}</p>
+            <p><strong>YTD NIS:</strong> {{ '%.2f'|format(ytd.nis) }}</p>
+            <p><strong>YTD Other deductions:</strong> {{ '%.2f'|format(ytd.other_deductions) }}</p>
+          </div>
+        </div> <h6 class="mt-2">YTD Net pay: <span class="mono">{{ '%.2f'|format(ytd.net_pay) }}</span></h6>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

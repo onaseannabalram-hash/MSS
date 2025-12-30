@@ -1,0 +1,58 @@
+<!-- templates/employee_form.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="card-header"><strong>New employee</strong></div>
+  <div class="card-body">
+    <form method="post">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Employee ID</label>
+          <input class="form-control" name="employee_id_code" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">First name</label>
+          <input class="form-control" name="first_name" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Last name</label>
+          <input class="form-control" name="last_name" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Department</label>
+          <input class="form-control" name="department">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Position</label>
+          <input class="form-control" name="position">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Email</label>
+          <input class="form-control" type="email" name="email">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">NIS number</label>
+          <input class="form-control" name="nis_number">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Tax reference</label>
+          <input class="form-control" name="tax_reference">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Bank name</label>
+          <input class="form-control" name="bank_name">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Bank account</label>
+          <input class="form-control" name="bank_account">    
+          <div class="col-md-6 mb-3">
+        <label for="date_of_birth">Date of Birth</label>
+        <input type="date" name="date_of_birth" value="{{date_of_birth }}">
+        </div>
+      </div>
+      <button class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
